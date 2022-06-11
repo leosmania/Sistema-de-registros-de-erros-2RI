@@ -2,21 +2,24 @@
 include("../config/config.php");
 switch ($_REQUEST["acao"]) {
     case 'cadastrar':
-        $nome = $_POST["nome"];
-        $login = $_POST["login"];
-        $senha = md5($_POST["senha"]);
+        $data = $_POST["data"];
+        $data = implode("-",array_reverse(explode("/",$data)));
+        $protocolo = $_POST["protocolo"];
+        $colaborador = $_POST["colaborador"];
         $setor = $_POST["setor"];
-        $permissao = $_POST["permissao"];
+        $erros = implode('<br>', $_POST['erros']);
+        $obs = $_POST["obs"];
 
 
-        $sql = "INSERT INTO usuarios (nome,login,senha,setor,permissao) VALUES ('{$nome}', '{$login}', '{$senha}', '{$setor}', '{$permissao}')";
+        $sql = "INSERT INTO registros (data,protocolo,colaborador,setor,erros,obs) 
+        VALUES ('{$data}', '{$protocolo}', '{$colaborador}', '{$setor}', '{$erros}', '{$obs}')";
 
 
         $res = $conn->query($sql);
 
         if ($res == true) {
             print "<script>alert('Cadastrado com sucesso');</script>";
-            print "<script>location.href='listar_usuario.php';</script>";
+            print "<script>location.href='registrar.php';</script>";
         } else {
             print "<script>alert('Não foi possível cadastrar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -51,13 +54,13 @@ switch ($_REQUEST["acao"]) {
         break;
 
     case 'excluir':
-        $sql = "DELETE FROM usuarios WHERE id=" . $_REQUEST["id"];
+        $sql = "DELETE FROM registros WHERE id=" . $_REQUEST["id"];
 
         $res = $conn->query($sql);
 
         if ($res == true) {
             print "<script>alert('Excluído com sucesso');</script>";
-            print "<script>location.href='listar_usuario.php';</script>";
+            print "<script>location.href='listar_erros.php';</script>";
         } else {
             print "<script>alert('Não foi possível excluir');</script>";
             print "<script>location.href=?page=novo;</script>";

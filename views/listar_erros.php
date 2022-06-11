@@ -51,8 +51,8 @@
                 <a href="#"><i class="fa-solid fa-house-chimney"></i></a>
                 <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
             </header>
-            <div class="main-content">
-                <div class="main-content">
+            <div class="main-content fs-6 ">
+                <div class="main-conten">
                     <p><i class="fa-solid fa-users"></i> Listar usuarios</p>
 
                     <?php
@@ -65,37 +65,41 @@
                             include("listar_usuario.php");
                             break;
                         case "salvar";
-                            include("salvar_usuario.php");
+                            include("salvar_registro.php");
                             break;
                         case "editar";
                             include("editar_usuario.php");
                             break;
                     }
-                    $sql = "SELECT * FROM usuarios";
+                    $sql = "SELECT * FROM registros";
 
                     $res = $conn->query($sql);
 
                     $qtd = $res->num_rows;
 
                     if ($qtd > 0) {
-                        print "<table class='table table-hover table-striped table-bordered'>";
+                        print "<table class='table table-sm align-middle table-hover table-striped table-bordered'>";
                         print "<tr>";
-                        print "<th>#</th>";
-                        print "<th>Nome</th>";
-                        print "<th>Login</th>";
+                        //print "<th>#</th>";
+                        print "<th>Data</th>";
+                        print "<th>Protocolo</th>";
+                        print "<th>Colaborador</th>";
                         print "<th>Setor</th>";
-                        print "<th>Permissao</th>";
+                        print "<th>Tipos de Erros</th>";
+                        print "<th>Observações</th>";
                         print "<th>Ações</th>";
                         print "</tr>";
                         while ($row = $res->fetch_object()) {
                             print "<tr>";
-                            print "<td>" . $row->id . "</td>";
-                            print "<td>" . $row->nome . "</td>";
-                            print "<td>" . $row->login . "</td>";
+                           // print "<td>" . $row->id . "</td>";
+                            print "<td>" . $row->data = implode("/",array_reverse(explode("-",$row->data))); "</td>";
+                            print "<td>" . $row->protocolo . "</td>";
+                            print "<td>" . $row->colaborador . "</td>";
                             print "<td>" . $row->setor . "</td>";
-                            print "<td>" . $row->permissao . "</td>";
+                            print "<td class='text-break'>" . $row->erros . "</td>";
+                            print "<td class='text-break'>" . $row->obs . "</td>";
                             print "<td>
-                   <button onclick=\"location.href='editar_usuario.php?id=$row->id';\" class='btn btn-success'>Editar</button> 
+                   <button onclick=\"location.href='editar_erro.php?id=$row->id';\" class='btn btn-success'>Editar</button> 
 
                    <button onclick=\"if(confirm('Tem certeza que deseja excluir?')){location.href='?page=salvar&acao=excluir&id=" . $row->id . "';}else{false}\" 
                    class='btn btn-danger'>Excluir</button> 
@@ -108,6 +112,7 @@
                     }
                     ?>
                 </div>
+            </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

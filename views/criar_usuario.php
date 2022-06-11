@@ -69,8 +69,51 @@
                 <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
             </header>
             <div class="main-content">
-                <div class="main-conten">
-                  <h2>Dashboard</h2>
+                <div class="main-content">
+                    <p>Criar um novo usuário</p>
+                </div>
+                <form action="?page=salvar" method="POST">
+                    <input type="hidden" name="acao" value="cadastrar">
+                    <div class="mb-3">
+                        <label for="">Nome</label>
+                        <input type="text" name="nome" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Login</label>
+                        <input type="text" name="login" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Senha</label>
+                        <input type="password" name="senha" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Setor</label>
+                        <select name="setor"  class="form-select" id="setor">
+                        <?php
+                            include("config.php");
+
+                            $resultado = "SELECT * FROM setor order by setores ASC";
+                            $resultado = mysqli_query($conn, $resultado);
+                            while($row = mysqli_fetch_array($resultado)){ 
+                               echo("<option value='".$row['setores']."'>".$row['setores']."</option>");
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Permissão</label>
+                        <select name="permissao"  class="form-select" id="permissao">
+                            <option selected value="">Selecione a permissão</option>
+                            <option value="Administracao">Administração</option>
+                            <option value="Usuario">Usuário</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+
+                </form>
             </div>
         </main>
     </div>

@@ -6,10 +6,14 @@ main {
 }
 
 main .main-content{
-    padding: 30px;
+    padding: 20px;
     width: 100%;
     height: calc(100% - 90px);
     overflow-y: auto;
+}
+
+.table{
+    font-size: small;
 }
 
 .main-content::-webkit-scrollbar-track
