@@ -2,24 +2,18 @@
 include("../config/config.php");
 switch ($_REQUEST["acao"]) {
     case 'cadastrar':
-        $data = $_POST["data"];
-        $data = implode("-",array_reverse(explode("/",$data)));
-        $protocolo = $_POST["protocolo"];
-        $colaborador = $_POST["colaborador"];
-        $setor = $_POST["setor"];
-        $erros = implode('<br>', $_POST['erros']);
-        $obs = $_POST["obs"];
+        $tipo_erro = $_POST["tipo_erro"];
 
 
-        $sql = "INSERT INTO registros (data,protocolo,colaborador,setor,erros,obs) 
-        VALUES ('{$data}', '{$protocolo}', '{$colaborador}', '{$setor}', '{$erros}', '{$obs}')";
+        $sql = "INSERT INTO erros (erros) 
+        VALUES ('{$tipo_erro}')";
 
 
         $res = $conn->query($sql);
 
         if ($res == true) {
             print "<script>alert('Cadastrado com sucesso');</script>";
-            print "<script>location.href='registrar.php';</script>";
+            print "<script>location.href='novo_erro.php';</script>";
         } else {
             print "<script>alert('Não foi possível cadastrar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -28,7 +22,7 @@ switch ($_REQUEST["acao"]) {
 
     case 'editar':
         $data = $_POST["data"];
-        $data = implode("-",array_reverse(explode("/",$data)));
+        $data = implode("-", array_reverse(explode("/", $data)));
         $protocolo = $_POST["protocolo"];
         $colaborador = $_POST["colaborador"];
         $setor = $_POST["setor"];

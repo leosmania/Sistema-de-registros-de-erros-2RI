@@ -142,13 +142,7 @@
 
             <?php
 
-            $data_inicial = $_POST['data_inicial'];
-            $data_inicial = implode("-",array_reverse(explode("/",$data_inicial)));
-            $data_final = $_POST['data_final'];
-            $data_final = implode("-",array_reverse(explode("/",$data_final)));
-
-            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`colaborador` = '$_POST[colaborador]')
-            ORDER BY data, protocolo";
+            $sql = "SELECT * FROM registros";
 
             $res = $conn->query($sql);
 

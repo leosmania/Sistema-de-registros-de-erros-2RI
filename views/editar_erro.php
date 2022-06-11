@@ -16,16 +16,15 @@
         <sidebar>
             <div class="sidebar-title">
                 <img src="../images/2ricg.png" alt="">
-                <h2>Registro de Erros</h2>
             </div>
-            <div class="menu">
+           <!-- <div class="menu">
                 <ul>
                     <li>
-                        <a href="#"><i class="fa-solid fa-floppy-disk"></i>
+                        <a href="registrar.php"><i class="fa-solid fa-floppy-disk"></i>
                             Registrar</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa-solid fa-list"></i> Listar</a>
+                        <a href="listagem_erros.php"><i class="fa-solid fa-list"></i> Listar</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa-solid fa-key"></i> Trocar
@@ -44,16 +43,49 @@
                             Novo tipo de erro</a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
         </sidebar>
         <main>
             <header>
-                <a href="#"><i class="fa-solid fa-house-chimney"></i></a>
-                <a href="#"><i class="fa-solid fa-right-from-bracket"></i></a>
+                   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+                <nav class="navbar navbar-expand-lg bg-light">
+                    <div class="container-fluid">
+                        <a href="dashboard.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="registrar.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="listagem_erros.php"><i class="fa-solid fa-list"></i> Listar</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-gears"></i> Administrativo
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#"><i class="fa-solid fa-key"></i> Trocar
+                                            senha</a>
+                                        <a class="dropdown-item" href="criar_usuario.php"><i class="fa-solid fa-user-plus"></i></i> Criar
+                                            usuário</a>
+                                        <a class="dropdown-item" href=" listar_usuario.php"><i class="fa-solid fa-users"></i></i></i>
+                                            Listar usuários</a>
+                                        <a class="dropdown-item" href="novo_erro.php""><i class="fa-solid fa-plus"></i>
+                                            Novo tipo de erro</a>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
             </header>
             <div class="main-content">
                 <div class="main-conten">
-                    <p>Editar usuario</p>
+                    <p>Editar erro</p>
                     <?php
                     include("../config/config.php");
                     $sql = "SELECT * FROM registros WHERE id=" . $_REQUEST["id"];
@@ -63,7 +95,7 @@
 
                     ?>
                     <form action="salvar_registro.php" method="POST">
-                        <input type="hidden" name="acao" value="cadastrar">
+                        <input type="hidden" name="acao" value="editar">
                         <input type="hidden" name="id" value="<?php print $row->id; ?>">
                         <div class="mb-3">
                             <div class="row">
@@ -112,7 +144,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Erros</label>
-                            <select name="erros[]" class="form-select" multiple aria-label="multiple select example">
+                            <select name="erros[]" class="form-select" multiple aria-label="multiple select example" ">
                                 <?php
                                 include("config.php");
 
@@ -125,10 +157,9 @@
                             </select>
                             <small>Segure ctrl para selecionar mais de um</small>
                         </div>
-                        <div class="mb-3">
-                            <label for="obs" class="form-label">Observações/Consequências:</label>
-                            <textarea class="form-control" name="obs" id="obs" rows="3" ><?php include("config.php");
-                            print $row->obs;  ?></textarea>
+                        <div class=" mb-3">
+                                <label for="obs" class="form-label">Observações/Consequências:</label>
+                                <textarea class="form-control" name="obs" id="obs" rows="3"></textarea>
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Enviar</button>
@@ -136,6 +167,7 @@
 
                     </form>
                 </div>
+            </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

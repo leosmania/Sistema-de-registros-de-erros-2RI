@@ -9,6 +9,9 @@
     <title>SCON</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="../plugins/fontawesome/css/all.min.css">
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/fontawesome/js/all.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 
 <body>
@@ -27,6 +30,9 @@
         case "editar";
             include("editar_usuario.php");
             break;
+        case "salvar_tipo";
+            include("salvar_tipo.php");
+            break;
     }
     ?>
     <div class="flex-dashboard">
@@ -34,6 +40,7 @@
             <div class="sidebar-title">
                 <img src="../images/2ricg.png" alt="">
             </div>
+
             <!--<div class="menu">
                 <ul>
                     <li>
@@ -64,7 +71,7 @@
         </sidebar>
         <main>
             <header>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
                         <a href="dashboard.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
@@ -99,77 +106,19 @@
                         </div>
                     </div>
                 </nav>
+
             </header>
             <div class="main-content">
-                <div class="main-conten">
-                    <p>Novo Registro</p>
-                </div>
-                <form action="salvar_registro.php" method="POST">
+
+                <p>Cadastrar novo tipo de erro</p>
+
+                <form action="?page=salvar_tipo" method="POST">
                     <input type="hidden" name="acao" value="cadastrar">
                     <div class="mb-3">
-                        <div class="row">
-                            <div class="col-sm">
-                                <label for="">Data</label>
-                                <input type="date" name="data" class="form-control">
-                            </div>
-                            <div class="col-sm">
-                                <label for="">Protocolo</label>
-                                <input type="text" name="protocolo" class="form-control">
-                            </div>
-                        </div>
+                        <label for="">Novo tipo de erro</label>
+                        <input type="text" name="tipo_erro" class="form-control">
                     </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col-sm">
-                                <label for="">Colaborador</label>
-                                <select class="form-select" name="colaborador" onkeypress="return handleEnter(this, event)" id="colaborador">
-                                    <?php
-                                    include("config.php");
 
-                                    $resultado = "SELECT * FROM usuarios order by nome ASC";
-                                    $resultado = mysqli_query($conn, $resultado);
-                                    while ($row = mysqli_fetch_array($resultado)) {
-                                        echo ("<option value='" . $row['nome'] . "'>" . $row['nome'] . "</option>");
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-sm">
-                                <label for="">Setor</label>
-                                <select name="setor" class="form-select" id="setor">
-                                    <?php
-                                    include("config.php");
-
-                                    $resultado = "SELECT * FROM setor order by setores ASC";
-                                    $resultado = mysqli_query($conn, $resultado);
-                                    while ($row = mysqli_fetch_array($resultado)) {
-                                        echo ("<option value='" . $row['setores'] . "'>" . $row['setores'] . "</option>");
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Erros</label>
-                        <select name="erros[]" class="form-select" multiple aria-label="multiple select example">
-                            <?php
-                            include("config.php");
-
-                            $resultado = "SELECT * FROM erros order by erros ASC";
-                            $resultado = mysqli_query($conn, $resultado);
-                            while ($row = mysqli_fetch_array($resultado)) {
-                                echo ("<option value='" . $row['erros'] . "'>" . $row['erros'] . "</option>");
-                            }
-                            ?>
-                        </select>
-                        <small>Segure ctrl para selecionar mais de um</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="obs" class="form-label">Observações/Consequências:</label>
-                        <textarea class="form-control" name="obs" id="obs" rows="3"></textarea>
-                    </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </div>
@@ -178,8 +127,7 @@
             </div>
         </main>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="../plugins/fontawesome/js/all.min.js"></script>
+
 </body>
 
 </html>

@@ -102,19 +102,18 @@
             </header>
             <div class="main-content">
                 <div class="main-conten">
-                    <p>Novo Registro</p>
+                    <p>Buscar Registro</p>
                 </div>
-                <form action="salvar_registro.php" method="POST">
-                    <input type="hidden" name="acao" value="cadastrar">
+                <form target="_blank" action="listar_erros.php" method="POST">
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-sm">
-                                <label for="">Data</label>
-                                <input type="date" name="data" class="form-control">
+                                <label for="">Data Inicial</label>
+                                <input type="date" name="data_inicial" class="form-control">
                             </div>
                             <div class="col-sm">
-                                <label for="">Protocolo</label>
-                                <input type="text" name="protocolo" class="form-control">
+                                <label for="">Data Final</label>
+                                <input type="date" name="data_final" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -134,45 +133,10 @@
                                     ?>
                                 </select>
                             </div>
-                            <div class="col-sm">
-                                <label for="">Setor</label>
-                                <select name="setor" class="form-select" id="setor">
-                                    <?php
-                                    include("config.php");
 
-                                    $resultado = "SELECT * FROM setor order by setores ASC";
-                                    $resultado = mysqli_query($conn, $resultado);
-                                    while ($row = mysqli_fetch_array($resultado)) {
-                                        echo ("<option value='" . $row['setores'] . "'>" . $row['setores'] . "</option>");
-                                    }
-                                    ?>
-                                </select>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Enviar</button>
                             </div>
-                        </div>
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Erros</label>
-                        <select name="erros[]" class="form-select" multiple aria-label="multiple select example">
-                            <?php
-                            include("config.php");
-
-                            $resultado = "SELECT * FROM erros order by erros ASC";
-                            $resultado = mysqli_query($conn, $resultado);
-                            while ($row = mysqli_fetch_array($resultado)) {
-                                echo ("<option value='" . $row['erros'] . "'>" . $row['erros'] . "</option>");
-                            }
-                            ?>
-                        </select>
-                        <small>Segure ctrl para selecionar mais de um</small>
-                    </div>
-                    <div class="mb-3">
-                        <label for="obs" class="form-label">Observações/Consequências:</label>
-                        <textarea class="form-control" name="obs" id="obs" rows="3"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-                    </div>
 
                 </form>
             </div>
