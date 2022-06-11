@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -19,14 +18,14 @@
             <p><i class="fa-solid fa-users"></i> Listar erros | <i class="fa-solid fa-print"></i> </p>
 
             <?php
-             include("../config/config.php");
+            include("../config/config.php");
 
             $data_inicial = $_POST['data_inicial'];
-            $data_inicial = implode("-",array_reverse(explode("/",$data_inicial)));
+            $data_inicial = implode("-", array_reverse(explode("/", $data_inicial)));
             $data_final = $_POST['data_final'];
-            $data_final = implode("-",array_reverse(explode("/",$data_final)));
+            $data_final = implode("-", array_reverse(explode("/", $data_final)));
 
-            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`colaborador` = '$_POST[colaborador]')
+            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`setor` = '$_POST[setor]')
             ORDER BY data, protocolo";
 
             $res = $conn->query($sql);

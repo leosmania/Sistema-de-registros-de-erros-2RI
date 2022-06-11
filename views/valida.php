@@ -1,36 +1,42 @@
 <?php
-include("../config/config.php");
 
+require('../config/config.php');
 
-if (isset($_POST['user']) || isset($_POST['senha'])) {
+$userIsSet = (!empty($_POST['login']) && isset($_POST['login']));
+$passwdIsSet = (!empty($_POST['senha']) && isset($_POST['senha']));
 
-    if (strlen($_POST['user'] == 0)) {
-        echo "Preencha o login";
-    } else if (strlen($_POST['senha'] == 0)) {
-        echo "Preencha sua senha";
+if ($userIsSet && $passwdIsSet) {
+
+    $USUARIO = $_POST['login'];
+    $SENHA = md5($_POST['senha']);
+
+    $sql = "SELECT * FROM usuarios WHERE login='$USUARIO' AND senha='$SENHA'";
+    $sql = $conn->query($sql) or die('Erro na query de index.php');
+
+    $qtd = $sql->num_rows;
+    if ($qtd == 1) {
+
+        session_start();
+
+        $resultado = $sql->fetch_assoc();
+
+        $_SESSION['nome'] = $resultado['nome'];
+        $_SESSION['login'] = $resultado['login'];
+        $_SESSION['permissao'] = $resultado['permissao'];
+
+        $permissao = $_SESSION['permissao'];
+
+        if ($permissao == "Administracao") {
+            header('Location: dashboard.php');
+        }
+        if ($permissao == "Usuario") {
+            header('Location: listar_usuario.php');
+        }
     } else {
-
-        $login = $conn->real_escape_string($_POST['login']);
-        $senha = $conn->real_escape_string($_POST['senha']);
-
-        $sql = "SELECT * FROM usuarios WHERE user = '$login' AND senha = '$senha' LIMIT 1";
-        $res = $conn->query($sql) or die();
-
-        $qtd = $res->num_rows;
-
-        $login = $res->fetch_assoc();
-
-        if (!isset($_SESSION)) {
-                session_start();
-            }
-
-            $_SESSION['nome'] = $login['nome'];
-            $_SESSION['permissao'] = $login['permissao'];
-
-            header("Location: dashboard.php");
-
-
+        echo "Usuário não encontrado!";
+        echo "<a href='index.php'>Voltar</a>";
+        echo $USUARIO;
+        echo $SENHA;
+        exit();
     }
 }
-
-?>

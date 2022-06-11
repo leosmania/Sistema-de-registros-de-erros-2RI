@@ -17,33 +17,6 @@
             <div class="sidebar-title">
                 <img src="../images/2ricg.png" alt="">
             </div>
-           <!-- <div class="menu">
-                <ul>
-                    <li>
-                        <a href="registrar.php"><i class="fa-solid fa-floppy-disk"></i>
-                            Registrar</a>
-                    </li>
-                    <li>
-                        <a href="listagem_erros.php"><i class="fa-solid fa-list"></i> Listar</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa-solid fa-key"></i> Trocar
-                            senha</a>
-                    </li>
-                    <li>
-                        <a href="criar_usuario.php"><i class="fa-solid fa-user-plus"></i></i> Criar
-                            usuário</a>
-                    </li>
-                    <li>
-                        <a href="listar_usuario.php"><i class="fa-solid fa-users"></i></i></i>
-                            Listar usuários</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa-solid fa-plus"></i>
-                            Novo tipo de erro</a>
-                    </li>
-                </ul>
-            </div>-->
         </sidebar>
         <main>
             <header>
@@ -67,7 +40,7 @@
                                     <i class="fa-solid fa-gears"></i> Administrativo
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="#"><i class="fa-solid fa-key"></i> Trocar
+                                        <a class="dropdown-item" href="trocar_senha.php"><i class="fa-solid fa-key"></i> Trocar
                                             senha</a>
                                         <a class="dropdown-item" href="criar_usuario.php"><i class="fa-solid fa-user-plus"></i></i> Criar
                                             usuário</a>
