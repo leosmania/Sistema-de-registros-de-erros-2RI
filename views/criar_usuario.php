@@ -12,7 +12,14 @@
 </head>
 
 <body>
-<?php
+    <?php
+    session_start();
+    if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
+        header('location: ../index.php');
+    }
+
+    $logado = $_SESSION['login'];
+    $nome = $_SESSION['nome'];
     include("../config/config.php");
     switch (@$_REQUEST["page"]) {
         case "novo":
@@ -30,13 +37,13 @@
     }
     ?>
     <div class="flex-dashboard">
-    <sidebar>
+        <sidebar>
             <div class="sidebar-title">
                 <img src="../images/2ricg.png" alt="">
             </div>
         </sidebar>
         <main>
-        <header>
+            <header>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
@@ -51,7 +58,7 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-solid fa-list"></i> Listagem de erros
+                                        <i class="fa-solid fa-list"></i> Listagem de erros
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="listagem_erros.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
@@ -59,7 +66,7 @@
 
                                     </div>
                                 </li>
-                               
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa-solid fa-gears"></i> Administrativo
@@ -83,7 +90,7 @@
             </header>
             <div class="main-content">
 
-                    <p>Criar um novo usuário</p>
+                <p>Criar um novo usuário</p>
 
                 <form action="?page=salvar" method="POST">
                     <input type="hidden" name="acao" value="cadastrar">
@@ -101,21 +108,21 @@
                     </div>
                     <div class="mb-3">
                         <label for="">Setor</label>
-                        <select name="setor"  class="form-select" id="setor">
-                        <?php
+                        <select name="setor" class="form-select" id="setor">
+                            <?php
                             include("config.php");
 
                             $resultado = "SELECT * FROM setor order by setores ASC";
                             $resultado = mysqli_query($conn, $resultado);
-                            while($row = mysqli_fetch_array($resultado)){ 
-                               echo("<option value='".$row['setores']."'>".$row['setores']."</option>");
+                            while ($row = mysqli_fetch_array($resultado)) {
+                                echo ("<option value='" . $row['setores'] . "'>" . $row['setores'] . "</option>");
                             }
                             ?>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="">Permissão</label>
-                        <select name="permissao"  class="form-select" id="permissao">
+                        <select name="permissao" class="form-select" id="permissao">
                             <option selected value="">Selecione a permissão</option>
                             <option value="Administracao">Administração</option>
                             <option value="Usuario">Usuário</option>

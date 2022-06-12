@@ -1,3 +1,12 @@
+<?php
+session_start();
+if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location: ../index.php');
+}
+
+$logado = $_SESSION['login'];
+$nome = $_SESSION['nome'];
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -19,7 +28,7 @@
             </div>
         </sidebar>
         <main>
-        <header>
+            <header>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
@@ -34,7 +43,7 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-solid fa-list"></i> Listagem de erros
+                                        <i class="fa-solid fa-list"></i> Listagem de erros
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="listagem_erros.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
@@ -42,7 +51,7 @@
 
                                     </div>
                                 </li>
-                               
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa-solid fa-gears"></i> Administrativo
@@ -90,6 +99,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col-sm">
@@ -100,8 +110,8 @@
 
                                         $resultado = "SELECT * FROM usuarios order by nome ASC";
                                         $resultado = mysqli_query($conn, $resultado);
-                                        while ($row = mysqli_fetch_array($resultado)) {
-                                            echo ("<option value='" . $row['nome'] . "'>" . $row['nome'] . "</option>");
+                                        while ($row4 = mysqli_fetch_array($resultado)) {
+                                            echo ("<option value='" . $row4['nome'] . "'>" . $row4['nome'] . "</option>");
                                         }
                                         ?>
                                     </select>
@@ -114,8 +124,8 @@
 
                                         $resultado = "SELECT * FROM setor order by setores ASC";
                                         $resultado = mysqli_query($conn, $resultado);
-                                        while ($row = mysqli_fetch_array($resultado)) {
-                                            echo ("<option value='" . $row['setores'] . "'>" . $row['setores'] . "</option>");
+                                        while ($row3 = mysqli_fetch_array($resultado)) {
+                                            echo ("<option value='" . $row3['setores'] . "'>" . $row3['setores'] . "</option>");
                                         }
                                         ?>
                                     </select>
@@ -131,8 +141,8 @@
 
                                 $resultado = "SELECT * FROM erros order by erros ASC";
                                 $resultado = mysqli_query($conn, $resultado);
-                                while ($row = mysqli_fetch_array($resultado)) {
-                                    echo ("<option value='" . $row['erros'] . "'>" . $row['erros'] . "</option>");
+                                while ($row2 = mysqli_fetch_array($resultado)) {
+                                    echo ("<option value='" . $row2['erros'] . " '>" . $row2['erros'] . "</option>");
                                 }
                                 ?>
                             </select>
@@ -140,7 +150,9 @@
                         </div>
                         <div class=" mb-3">
                                 <label for="obs" class="form-label">Observações/Consequências:</label>
-                                <textarea class="form-control" name="obs" id="obs" rows="3"></textarea>
+                                <textarea class="form-control" name="obs" id="obs" rows="3">
+                                <?php print $row->obs ?>
+                                 </textarea>
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Enviar</button>

@@ -1,3 +1,12 @@
+<?php
+session_start();
+if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location: ../index.php');
+}
+
+$logado = $_SESSION['login'];
+$nome = $_SESSION['nome'];
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -32,8 +41,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="registrar.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="listagem_erros.php"><i class="fa-solid fa-list"></i> Listar</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa-solid fa-list"></i> Listagem de erros
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="listagem_erros.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
+                                        <a class="dropdown-item" href="listagem_setor.php"><i class="fa-solid fa-users-line"></i> Listar por setor</a>
+
+                                    </div>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

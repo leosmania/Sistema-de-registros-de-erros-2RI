@@ -12,7 +12,7 @@
 
         if ($res == true) {
             print "<script>alert('Editado com sucesso');</script>";
-            print "<script>location.href='listagem_erros.php';</script>";
+            print "<script>location.href='home_user.php';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
             print "<script>location.href=?page=novo;</script>";

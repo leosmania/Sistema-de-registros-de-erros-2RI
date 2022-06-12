@@ -1,13 +1,13 @@
 <?php
 session_start();
-if((!isset ($_SESSION['login']) == true) and (!isset ($_SESSION['senha']) == true))
-{
-  header('location: ../index.php');
-  }
+if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location: ../index.php');
+}
 
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
-
+?>
+<?php
 include("../config/config.php");
 header("Refresh:20");
 $qtd_atendimento = 0;
@@ -23,22 +23,27 @@ $sql = "SELECT * FROM registros WHERE MONTH(data) = '{$mes}'";
 $res = $conn->query($sql);
 $qtd = $res->num_rows;
 if ($qtd > 0) {
-while ($row = $res->fetch_object()) {
-    if ($row->setor == "Atendimento") {
-        $qtd_atendimento++;
-    }if ($row->setor == "Centrais") {
-        $qtd_centrais++;
+    while ($row = $res->fetch_object()) {
+        if ($row->setor == "Atendimento") {
+            $qtd_atendimento++;
+        }
+        if ($row->setor == "Centrais") {
+            $qtd_centrais++;
+        }
+        if ($row->setor == "Registro") {
+            $qtd_registro++;
+        }
+        if ($row->setor == "Analise") {
+            $qtd_analise++;
+        }
+        if ($row->setor == "Conferência") {
+            $qtd_conferencia++;
+        }
+        if ($row->setor == "Finalização") {
+            $qtd_finalizacao++;
+        }
     }
-    if ($row->setor == "Registro") {
-        $qtd_registro++;
-    }if ($row->setor == "Analise") {
-        $qtd_analise++;
-    }if ($row->setor == "Conferência") {
-        $qtd_conferencia++;
-    }if ($row->setor == "Finalização") {
-        $qtd_finalizacao++;
-    }
-}}
+}
 
 $qtd_atendimento_dia = 0;
 $qtd_centrais_dia = 0;
@@ -53,22 +58,27 @@ $sql = "SELECT * FROM registros WHERE DAY(data) = '{$dia}'";
 $res = $conn->query($sql);
 $qtd = $res->num_rows;
 if ($qtd > 0) {
-while ($row = $res->fetch_object()) {
-    if ($row->setor == "Atendimento") {
-        $qtd_atendimento_dia++;
-    }if ($row->setor == "Centrais") {
-        $qtd_centrais_dia++;
+    while ($row = $res->fetch_object()) {
+        if ($row->setor == "Atendimento") {
+            $qtd_atendimento_dia++;
+        }
+        if ($row->setor == "Centrais") {
+            $qtd_centrais_dia++;
+        }
+        if ($row->setor == "Registro") {
+            $qtd_registro_dia++;
+        }
+        if ($row->setor == "Analise") {
+            $qtd_analise_dia++;
+        }
+        if ($row->setor == "Conferência") {
+            $qtd_conferencia_dia++;
+        }
+        if ($row->setor == "Finalização") {
+            $qtd_finalizacao_dia++;
+        }
     }
-    if ($row->setor == "Registro") {
-        $qtd_registro_dia++;
-    }if ($row->setor == "Analise") {
-        $qtd_analise_dia++;
-    }if ($row->setor == "Conferência") {
-        $qtd_conferencia_dia++;
-    }if ($row->setor == "Finalização") {
-        $qtd_finalizacao_dia++;
-    }
-}}
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -173,39 +183,25 @@ while ($row = $res->fetch_object()) {
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
-                        <a href="dashboard.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
+                        <a href="home_user.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="registrar.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
+                                    <a class="nav-link" href="registrar_user.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="trocar_senha.php" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa-solid fa-list"></i> Listagem de erros
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="listagem_erros.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
-                                        <a class="dropdown-item" href="listagem_setor.php"><i class="fa-solid fa-users-line"></i> Listar por setor</a>
-
-                                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="listar_user.php"> <i class="fa-solid fa-list"></i> Listagem de erros</a>
                                 </li>
-
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa-solid fa-gears"></i> Administrativo
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="trocar_senha.php"><i class="fa-solid fa-key"></i> Trocar
+                                        <a class="dropdown-item" href="trocar_senha_user.php"><i class="fa-solid fa-key"></i> Trocar
                                             senha</a>
-                                        <a class="dropdown-item" href="criar_usuario.php"><i class="fa-solid fa-user-plus"></i></i> Criar
-                                            usuário</a>
-                                        <a class="dropdown-item" href=" listar_usuario.php"><i class="fa-solid fa-users"></i></i></i>
-                                            Listar usuários</a>
-                                        <a class="dropdown-item" href="novo_erro.php"><i class="fa-solid fa-plus"></i>
-                                            Novo tipo de erro</a>
                                     </div>
 
                                 </li>
@@ -218,60 +214,8 @@ while ($row = $res->fetch_object()) {
                 <div class="main-conten">
                     <h2>Dashboard</h2>
                 </div>
-                <div class="container px-4">
-                    <div class="row gx-5">
-                        <div class="col">
-                            <div class="p-3 border bg-light">
-                                <?php
-                                $dia = date("d");
 
-                                $sql = "SELECT * FROM registros WHERE DAY(data) = '{$dia}'";
-
-                                $res = $conn->query($sql);
-
-                                $qtd_dia = $res->num_rows;
-
-                                print "<b>Erros registrados no dia atual:</b> $qtd_dia<br>";
-                                $mes = date("m");
-
-                                $sql = "SELECT * FROM registros WHERE MONTH(data) = '{$mes}'";
-
-                                $res = $conn->query($sql);
-
-                                $qtd_mes = $res->num_rows;
-
-                                print "<b>Erros registrados no mês atual: </b>$qtd_mes";
-                                ?>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3 border bg-light"><b>Erros por setor no mês atual:</b> <br><br>
-                                <?php
-                                print "<b>Atendimento: </b> $qtd_atendimento <br>";
-                                print "<b>Centrais: </b>$qtd_centrais <br>";
-                                print "<b>Registro: </b>$qtd_registro <br>";
-                                print "<b>Analise: </b>$qtd_analise <br>";
-                                print "<b>Conferência: </b>$qtd_conferencia <br>";
-                                print "<b>Finalização: </b>$qtd_finalizacao <br>";
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container px-4">
-                    <div class="row gx-5">
-                        <div class="col">
-                            <div class="p-3 border bg-light">
-                                <div id="graf_mes" style="width: 400px; height: 300px;"></div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="p-3 border bg-light">
-                            <div id="graf_dia" style="width: 400px; height: 300px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>

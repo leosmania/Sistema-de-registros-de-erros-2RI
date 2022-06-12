@@ -27,7 +27,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Cadastrado com sucesso');</script>";
-            print "<script>location.href='registrar.php';</script>";
+            print "<script>location.href='registrar_user.php';</script>";
         } else {
             print "<script>alert('Não foi possível cadastrar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -57,7 +57,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Editado com sucesso');</script>";
-            print "<script>location.href='listagem_erros.php';</script>";
+            print "<script>location.href='home_user.php';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -71,7 +71,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Excluído com sucesso');</script>";
-            print "<script>location.href='listar_erros.php';</script>";
+            print "<script>location.href='home_user.php';</script>";
         } else {
             print "<script>alert('Não foi possível excluir');</script>";
             print "<script>location.href=?page=novo;</script>";

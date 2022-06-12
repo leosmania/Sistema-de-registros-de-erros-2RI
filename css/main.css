@@ -49,3 +49,7 @@ main .main-content{
 .mb-3 button{
     width: 30%;
 }
+
+.p-3{
+    background-color: #F5F5F5;
+}

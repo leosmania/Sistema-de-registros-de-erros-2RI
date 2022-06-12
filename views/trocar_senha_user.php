@@ -46,6 +46,9 @@
         case "alterar_senha";
             include("alterarsenha.php");
             break;
+        case "alterar_senha_user";
+            include("alterarsenhauser.php");
+            break;
     }
     ?>
     <div class="flex-dashboard">
@@ -60,39 +63,25 @@
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
-                        <a href="dashboard.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
+                        <a href="home_user.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="registrar.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
+                                    <a class="nav-link" href="registrar_user.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa-solid fa-list"></i> Listagem de erros
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="listagem_erros.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
-                                        <a class="dropdown-item" href="listagem_setor.php"><i class="fa-solid fa-users-line"></i> Listar por setor</a>
-
-                                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="listar_user.php"> <i class="fa-solid fa-list"></i> Listagem de erros</a>
                                 </li>
-
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa-solid fa-gears"></i> Administrativo
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="trocar_senha.php"><i class="fa-solid fa-key"></i> Trocar
+                                        <a class="dropdown-item" href="trocar_senha_user.php"><i class="fa-solid fa-key"></i> Trocar
                                             senha</a>
-                                        <a class="dropdown-item" href="criar_usuario.php"><i class="fa-solid fa-user-plus"></i></i> Criar
-                                            usuário</a>
-                                        <a class="dropdown-item" href=" listar_usuario.php"><i class="fa-solid fa-users"></i></i></i>
-                                            Listar usuários</a>
-                                        <a class="dropdown-item" href="novo_erro.php"><i class="fa-solid fa-plus"></i>
-                                            Novo tipo de erro</a>
                                     </div>
 
                                 </li>
@@ -106,7 +95,7 @@
 
                 <p><?php print "Olá $nome , aqui você pode alterar sua senha" ?></p>
 
-                <form action="?page=alterar_senha" method="POST">
+                <form action="?page=alterar_senha_user" method="POST">
                     <input type="hidden" name="acao" value="editar">
                     <div class="mb-3">
                         <label for="">Nova Senha</label>

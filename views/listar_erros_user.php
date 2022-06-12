@@ -1,12 +1,4 @@
-<?php
-session_start();
-if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
-    header('location: ../index.php');
-}
 
-$logado = $_SESSION['login'];
-$nome = $_SESSION['nome'];
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -28,14 +20,20 @@ $nome = $_SESSION['nome'];
 
             <?php
             include("../config/config.php");
-
+            session_start();
+            if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
+                header('location: ../index.php');
+            }
+            
+            $logado = $_SESSION['login'];
+            $nome = $_SESSION['nome'];           
             $data_inicial = $_POST['data_inicial'];
-            $data_inicial = implode("-", array_reverse(explode("/", $data_inicial)));
+            $data_inicial = implode("-",array_reverse(explode("/",$data_inicial)));
             $data_final = $_POST['data_final'];
-            $data_final = implode("-", array_reverse(explode("/", $data_final)));
+            $data_final = implode("-",array_reverse(explode("/",$data_final)));
 
-            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`setor` = '$_POST[setor]')
-            ORDER BY data, protocolo";
+            $sql = "SELECT * FROM `registros` AS retorno WHERE retorno.`colaborador` = '$nome' AND retorno.`data` BETWEEN '$_POST[data_inicial]' AND '$_POST[data_final]'
+            ORDER BY data";
 
             $res = $conn->query($sql);
 

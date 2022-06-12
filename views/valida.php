@@ -30,7 +30,7 @@ if ($userIsSet && $passwdIsSet) {
             header('Location: dashboard.php');
         }
         if ($permissao == "Usuario") {
-            header('Location: listar_usuario.php');
+            header('Location: home_user.php');
         }
     } else {
         echo "Usuário não encontrado!";
