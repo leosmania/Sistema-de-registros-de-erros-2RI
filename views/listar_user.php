@@ -4,6 +4,10 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+
+include_once("seguranca.php");
+seguranca_cliente(); // para nível publico ou cliente
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -82,7 +86,7 @@ $nome = $_SESSION['nome'];
                 <p><?php print ("Olá $nome")?></p>    
                 <p>Buscar Registro</p>
                 </div>
-                <form target="_blank" action="listar_erros.php" method="POST">
+                <form target="_blank" action="listar_erros_user.php" method="POST">
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-sm">
@@ -94,8 +98,20 @@ $nome = $_SESSION['nome'];
                                 <input type="date" name="data_final" class="form-control">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="">Colaborador</label>
+                                <select class="form-select" name="colaborador" onkeypress="return handleEnter(this, event)" id="colaborador">
+                                    <?php
+                                    include("config.php");
+                                    echo ("<option value='" . $nome . "'>" . $nome . "</option>");
+                                    
+                                    ?>
+                                </select>
+                            </div>
+
                     </div>
-                                <div class="mb-3">
+                    <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Enviar</button>
                             </div>
 

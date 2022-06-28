@@ -4,6 +4,11 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+
+include_once("seguranca.php");
+seguranca_adm(); //para página com permissão adm
+
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>

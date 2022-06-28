@@ -56,6 +56,10 @@
                     <p><i class="fa-solid fa-users"></i> Listar usuarios</p>
 
                     <?php
+                    session_start();
+                    include_once("seguranca.php");
+                    seguranca_adm(); //para página com permissão adm
+
                     include("../config/config.php");
                     switch (@$_REQUEST["page"]) {
                         case "novo":

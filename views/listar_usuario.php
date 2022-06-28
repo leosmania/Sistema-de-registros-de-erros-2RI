@@ -4,6 +4,11 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+
+include_once("seguranca.php");
+seguranca_adm(); //para página com permissão adm
+
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -92,7 +97,7 @@ $nome = $_SESSION['nome'];
                             include("editar_usuario.php");
                             break;
                     }
-                    $sql = "SELECT * FROM usuarios";
+                    $sql = "SELECT * FROM usuarios order by nome ASC";
 
                     $res = $conn->query($sql);
 

@@ -4,9 +4,9 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
-
 include_once("seguranca.php");
-seguranca_adm(); //para página com permissão adm
+seguranca_colaborador(); // para nível de permissão colaborador/moderador
+
 
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
@@ -54,7 +54,7 @@ $nome = $_SESSION['nome'];
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
-                        <a href="dashboard.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
+                        <a href="dashboardg.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -64,12 +64,12 @@ $nome = $_SESSION['nome'];
                                     <a class="nav-link" href="registrar.php"><i class="fa-solid fa-floppy-disk"></i> Registrar</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa-solid fa-list"></i> Listagem de erros
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="listagem_erros.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
-                                        <a class="dropdown-item" href="listagem_setor.php"><i class="fa-solid fa-users-line"></i> Listar por setor</a>
+                                        <a class="dropdown-item" href="listagem_errosg.php"><i class="fa-solid fa-user"></i> Listar por usuário</a>
+                                        <a class="dropdown-item" href="listagem_setorg.php"><i class="fa-solid fa-users-line"></i> Listar por setor</a>
 
                                     </div>
                                 </li>
@@ -79,13 +79,13 @@ $nome = $_SESSION['nome'];
                                         <i class="fa-solid fa-gears"></i> Administrativo
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="trocar_senha.php"><i class="fa-solid fa-key"></i> Trocar
+                                        <a class="dropdown-item" href="trocar_senhag.php"><i class="fa-solid fa-key"></i> Trocar
                                             senha</a>
-                                        <a class="dropdown-item" href="criar_usuario.php"><i class="fa-solid fa-user-plus"></i></i> Criar
+                                        <a class="dropdown-item" href="criar_usuariog.php"><i class="fa-solid fa-user-plus"></i></i> Criar
                                             usuário</a>
-                                        <a class="dropdown-item" href=" listar_usuario.php"><i class="fa-solid fa-users"></i></i></i>
+                                        <a class="dropdown-item" href="listar_usuariog.php"><i class="fa-solid fa-users"></i></i></i>
                                             Listar usuários</a>
-                                        <a class="dropdown-item" href="novo_erro.php"><i class="fa-solid fa-plus"></i>
+                                        <a class="dropdown-item" href="novo_errog.php"><i class="fa-solid fa-plus"></i>
                                             Novo tipo de erro</a>
                                     </div>
 
@@ -99,7 +99,7 @@ $nome = $_SESSION['nome'];
                 <div class="main-conten">
                     <p>Novo Registro</p>
                 </div>
-                <form action="salvar_registro.php" method="POST">
+                <form action="salvar_registrog.php" method="POST">
                     <input type="hidden" name="acao" value="cadastrar">
                     <div class="mb-3">
                         <div class="row">
@@ -149,22 +149,22 @@ $nome = $_SESSION['nome'];
                     <div class="mb-3">
                         <label for="">Erros</label>
                         <select name="erros[]" class="form-select" multiple aria-label="multiple select example">
-                                <?php
-                                include("config.php");
+                            <?php
+                            include("config.php");
 
-                                $resultado = "SELECT * FROM erros order by erros ASC";
-                                $resultado = mysqli_query($conn, $resultado);
-                                while ($row2 = mysqli_fetch_array($resultado)) {
-                                   echo ("<option value='" . $row2['erros'] . " '>" . $row2['erros'] . "</option>");
-                                   ///echo '<input type="checkbox" name="erro[]" value="'. $row2['erros'].'">'. $row2['erros'] .'</input><br>';
-                                }
-                                ?>
-                            </select>
+                            $resultado = "SELECT * FROM erros order by erros ASC";
+                            $resultado = mysqli_query($conn, $resultado);
+                            while ($row2 = mysqli_fetch_array($resultado)) {
+                                echo ("<option value='" . $row2['erros'] . " '>" . $row2['erros'] . "</option>");
+                                ///echo '<input type="checkbox" name="erro[]" value="'. $row2['erros'].'">'. $row2['erros'] .'</input><br>';
+                            }
+                            ?>
+                        </select>
                         <small>Segure ctrl para selecionar mais de um</small>
                     </div>
                     <div class=" mb-3">
-                            <label for="obs" class="form-label">Observações/Consequências:</label>
-                            <textarea class="form-control" name="obs" id="obs" rows="3"></textarea>
+                        <label for="obs" class="form-label">Observações/Consequências:</label>
+                        <textarea class="form-control" name="obs" id="obs" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Enviar</button>

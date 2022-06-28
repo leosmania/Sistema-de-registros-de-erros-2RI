@@ -19,6 +19,24 @@ switch ($_REQUEST["acao"]) {
             print "<script>location.href=?page=novo;</script>";
         }
         break;
+    case 'cadastrarg':
+        $tipo_erro = $_POST["tipo_erro"];
+
+
+        $sql = "INSERT INTO erros (erros) 
+            VALUES ('{$tipo_erro}')";
+
+
+        $res = $conn->query($sql);
+
+        if ($res == true) {
+            print "<script>alert('Cadastrado com sucesso');</script>";
+            print "<script>location.href='novo_errog.php';</script>";
+        } else {
+            print "<script>alert('Não foi possível cadastrar');</script>";
+            print "<script>location.href=?page=novo;</script>";
+        }
+        break;
 
     case 'editar':
         $data = $_POST["data"];

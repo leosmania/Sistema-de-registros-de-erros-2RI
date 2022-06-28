@@ -1,11 +1,19 @@
+<?php
+session_start();
+if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
+    header('location: ../index.php');
+}
 
+include_once("seguranca.php");
+seguranca_colaborador(); // para nível de permissão colaborador/moderador
+
+
+$logado = $_SESSION['login'];
+$nome = $_SESSION['nome'];
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<?php 
-    session_start();
-    include_once("seguranca.php");
-    seguranca_cliente(); // para nível publico ou cliente
-?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,20 +32,27 @@
 
             <?php
             include("../config/config.php");
-            session_start();
-            if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true)) {
-                header('location: ../index.php');
+            switch (@$_REQUEST["page"]) {
+                case "novo":
+                    include("novo_usuario.php");
+                    break;
+                case "listar";
+                    include("listar_usuario.php");
+                    break;
+                case "salvar";
+                    include("salvar_registrog.php");
+                    break;
+                case "editar";
+                    include("editar_usuario.php");
+                    break;
             }
-            
-            $logado = $_SESSION['login'];
-            $nome = $_SESSION['nome'];           
             $data_inicial = $_POST['data_inicial'];
-            $data_inicial = implode("-",array_reverse(explode("/",$data_inicial)));
+            $data_inicial = implode("-", array_reverse(explode("/", $data_inicial)));
             $data_final = $_POST['data_final'];
-            $data_final = implode("-",array_reverse(explode("/",$data_final)));
+            $data_final = implode("-", array_reverse(explode("/", $data_final)));
 
-            $sql = "SELECT * FROM `registros` AS retorno WHERE retorno.`colaborador` = '$nome' AND retorno.`data` BETWEEN '$_POST[data_inicial]' AND '$_POST[data_final]' AND (retorno.`desconsiderar` != '1')
-            ORDER BY data";
+            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`setor` = '$_POST[setor]') AND (retorno.`desconsiderar` != '1')
+            ORDER BY data, protocolo";
 
             $res = $conn->query($sql);
 
@@ -53,8 +68,7 @@
                 print "<th>Setor</th>";
                 print "<th>Tipos de Erros</th>";
                 print "<th>Observações</th>";
-                print "<th>Login</th>";
-                //print "<th>Ações</th>";
+                print "<th>Ações</th>";
                 print "</tr>";
                 while ($row = $res->fetch_object()) {
                     print "<tr>";
@@ -66,10 +80,11 @@
                     print "<td>" . $row->setor . "</td>";
                     print "<td class='text-break'>" . $row->erros . "</td>";
                     print "<td class='text-break'>" . $row->obs . "</td>";
-                    print "<td>" . $row->login . "</td>";
                     print "<td>
 
-
+                    <button onclick=\"location.href='editar_erro.php?id=$row->id';\" class='btn btn-success'>Editar</button> 
+                    <button onclick=\"if(confirm('Tem certeza que deseja desconsiderar?')){location.href='?page=salvar&acao=desconsiderar&id=" . $row->id . "';}else{false}\" 
+                   class='btn btn-danger'>Desconsiderar</button> 
                    </td>";
                     print "</tr>";
                 }

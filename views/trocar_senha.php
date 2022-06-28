@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php 
+    session_start();
+    include_once("seguranca.php");
+    seguranca_adm(); //para página com permissão adm
 
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -107,7 +112,7 @@
                 <p><?php print "Olá $nome , aqui você pode alterar sua senha" ?></p>
 
                 <form action="?page=alterar_senha" method="POST">
-                    <input type="hidden" name="acao" value="editar">
+                    <input type="hidden" name="acao" value="alterar_senha">
                     <div class="mb-3">
                         <label for="">Nova Senha</label>
                         <input type="password" name="senha" class="form-control">

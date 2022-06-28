@@ -10,7 +10,7 @@ include("../config/config.php");
 switch ($_REQUEST["acao"]) {
     case 'cadastrar':
         $data = $_POST["data"];
-        $data = implode("-",array_reverse(explode("/",$data)));
+        $data = implode("-", array_reverse(explode("/", $data)));
         $protocolo = $_POST["protocolo"];
         $colaborador = $_POST["colaborador"];
         $setor = $_POST["setor"];
@@ -27,7 +27,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Cadastrado com sucesso');</script>";
-            print "<script>location.href='registrar.php';</script>";
+            print "<script>location.href='registrarg.php';</script>";
         } else {
             print "<script>alert('Não foi possível cadastrar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -36,7 +36,7 @@ switch ($_REQUEST["acao"]) {
 
     case 'editar':
         $data = $_POST["data"];
-        $data = implode("-",array_reverse(explode("/",$data)));
+        $data = implode("-", array_reverse(explode("/", $data)));
         $protocolo = $_POST["protocolo"];
         $colaborador = $_POST["colaborador"];
         $setor = $_POST["setor"];
@@ -57,7 +57,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Editado com sucesso');</script>";
-            print "<script>location.href='listagem_erros.php';</script>";
+            print "<script>location.href='listagem_errosg.php';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -78,24 +78,28 @@ switch ($_REQUEST["acao"]) {
         }
 
         break;
+    case 'desconsiderar':
+        $sql = "SELECT * FROM registros AS retorno WHERE retorno.`id`=" . $_REQUEST["id"];
+        $res = $conn->query($sql);
+        $row = $res->fetch_object();
 
-        case 'considerar':
-            $descon = 2;
+        if ($row->desconsiderar == 0) {
+            $descon = 1;
             $sql =  "UPDATE registros SET 
                 desconsiderar='{$descon}'
                 WHERE 
                 id=" . $_REQUEST["id"];
-    
-            $res = $conn->query($sql);
-    
-            if ($res == true) {
-                print "<script>alert('Erro retornou para a lista');</script>";
-                print "<script>location.href='dashboard.php';</script>";
-            } else {
-                print "<script>alert('Não foi possível excluir');</script>";
-                print "<script>location.href=?page=novo;</script>";
-            }
-    
-            break;
-    }
 
+            $res = $conn->query($sql);
+
+            if ($res == true) {
+                print "<script>alert('Erro desconsiderado');</script>";
+                print "<script>location.href='listagem_errosg.php';</script>";
+            }
+        } else {
+            print "<script>alert('Esse erro já foi desconsiderado anteriormente, não é mais possível realizar esse ato.');</script>";
+            print "<script>location.href='listagem_errosg.php';</script>";
+        }
+
+        break;
+}

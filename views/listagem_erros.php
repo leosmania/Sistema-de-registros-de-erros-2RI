@@ -4,6 +4,10 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+include_once("seguranca.php");
+seguranca_adm(); //para página com permissão adm
+
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -47,7 +51,7 @@ $nome = $_SESSION['nome'];
         </sidebar>
         <main>
             <header>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
                 <nav class="navbar navbar-expand-lg bg-light">
                     <div class="container-fluid">
                         <a href="dashboard.php"><i class="fa-solid fa-house-chimney"></i> &nbsp;| &nbsp; </a>
@@ -90,6 +94,7 @@ $nome = $_SESSION['nome'];
                         </div>
                     </div>
                 </nav>
+                
             </header>
             <div class="main-content">
                 <div class="main-conten">
@@ -116,7 +121,7 @@ $nome = $_SESSION['nome'];
                                     <?php
                                     include("config.php");
 
-                                    $resultado = "SELECT * FROM usuarios order by nome ASC";
+                                    $resultado = "SELECT * FROM colaboradores order by nome ASC";
                                     $resultado = mysqli_query($conn, $resultado);
                                     while ($row = mysqli_fetch_array($resultado)) {
                                         echo ("<option value='" . $row['nome'] . "'>" . $row['nome'] . "</option>");

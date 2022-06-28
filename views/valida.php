@@ -32,6 +32,9 @@ if ($userIsSet && $passwdIsSet) {
         if ($permissao == "Usuario") {
             header('Location: home_user.php');
         }
+        if ($permissao == "Gestão") {
+            header('Location: dashboardg.php');
+        }
     } else {
         echo "Usuário não encontrado!";
         echo "<a href='index.php'>Voltar</a>";

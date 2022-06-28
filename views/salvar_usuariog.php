@@ -17,7 +17,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Cadastrado com sucesso');</script>";
-            print "<script>location.href='listar_usuario.php';</script>";
+            print "<script>location.href='listar_usuariog.php';</script>";
         } else {
             print "<script>alert('Não foi possível cadastrar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -44,7 +44,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Editado com sucesso');</script>";
-            print "<script>location.href='listar_usuario.php';</script>";
+            print "<script>location.href='listar_usuariog.php';</script>";
         } else {
             print "<script>alert('Não foi possível editar');</script>";
             print "<script>location.href=?page=novo;</script>";
@@ -58,7 +58,7 @@ switch ($_REQUEST["acao"]) {
 
         if ($res == true) {
             print "<script>alert('Excluído com sucesso');</script>";
-            print "<script>location.href='listar_usuario.php';</script>";
+            print "<script>location.href='listar_usuariog.php';</script>";
         } else {
             print "<script>alert('Não foi possível excluir');</script>";
             print "<script>location.href=?page=novo;</script>";

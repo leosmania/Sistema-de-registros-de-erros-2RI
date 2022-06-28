@@ -4,6 +4,9 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+include_once("seguranca.php");
+seguranca_cliente(); // para nível publico ou cliente
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -212,7 +215,8 @@ if ($qtd > 0) {
             </header>
             <div class="main-content">
                 <div class="main-conten">
-                    <h2>Dashboard</h2>
+                    <p>Dashboard</p>
+                    <p><?php echo "Bem vindo $nome, hoje é: "; ?><?php echo date('d/m/Y'); ?></p>
                 </div>
 
             </div>

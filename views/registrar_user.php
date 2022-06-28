@@ -4,6 +4,9 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+include_once("seguranca.php");
+seguranca_cliente(); // para nível publico ou cliente
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -103,7 +106,7 @@ $nome = $_SESSION['nome'];
                                     <?php
                                     include("config.php");
 
-                                    $resultado = "SELECT * FROM usuarios order by nome ASC";
+                                    $resultado = "SELECT * FROM colaboradores order by nome ASC";
                                     $resultado = mysqli_query($conn, $resultado);
                                     while ($row = mysqli_fetch_array($resultado)) {
                                         echo ("<option value='" . $row['nome'] . "'>" . $row['nome'] . "</option>");

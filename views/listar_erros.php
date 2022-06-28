@@ -4,6 +4,11 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+
+include_once("seguranca.php");
+seguranca_adm(); //para página com permissão adm
+
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -28,13 +33,24 @@ $nome = $_SESSION['nome'];
 
             <?php
              include("../config/config.php");
+             switch (@$_REQUEST["page"]) {
+                case "novo":
+                    include("novo_usuario.php");
+                    break;
+                case "listar";
+                    include("listar_usuario.php");
+                    break;
+                case "salvar";
+                    include("salvar_registro.php");
+                    break;
 
+            }
             $data_inicial = $_POST['data_inicial'];
             $data_inicial = implode("-",array_reverse(explode("/",$data_inicial)));
             $data_final = $_POST['data_final'];
             $data_final = implode("-",array_reverse(explode("/",$data_final)));
 
-            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`colaborador` = '$_POST[colaborador]')
+            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`colaborador` = '$_POST[colaborador]') AND (retorno.`desconsiderar` != '1')
             ORDER BY data, protocolo";
 
             $res = $conn->query($sql);
@@ -51,6 +67,7 @@ $nome = $_SESSION['nome'];
                 print "<th>Setor</th>";
                 print "<th>Tipos de Erros</th>";
                 print "<th>Observações</th>";
+                print "<th>Login</th>";
                 print "<th>Ações</th>";
                 print "</tr>";
                 while ($row = $res->fetch_object()) {
@@ -63,6 +80,7 @@ $nome = $_SESSION['nome'];
                     print "<td>" . $row->setor . "</td>";
                     print "<td class='text-break'>" . $row->erros . "</td>";
                     print "<td class='text-break'>" . $row->obs . "</td>";
+                    print "<td>" . $row->login . "</td>";
                     print "<td>
 
                     <button onclick=\"location.href='editar_erro.php?id=$row->id';\" class='btn btn-success'>Editar</button> 

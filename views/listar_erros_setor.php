@@ -4,6 +4,10 @@ if ((!isset($_SESSION['login']) == true) and (!isset($_SESSION['senha']) == true
     header('location: ../index.php');
 }
 
+include_once("seguranca.php");
+seguranca_adm(); //para página com permissão adm
+
+
 $logado = $_SESSION['login'];
 $nome = $_SESSION['nome'];
 ?>
@@ -28,13 +32,26 @@ $nome = $_SESSION['nome'];
 
             <?php
             include("../config/config.php");
-
+            switch (@$_REQUEST["page"]) {
+                case "novo":
+                    include("novo_usuario.php");
+                    break;
+                case "listar";
+                    include("listar_usuario.php");
+                    break;
+                case "salvar";
+                    include("salvar_registro.php");
+                    break;
+                case "editar";
+                    include("editar_usuario.php");
+                    break;
+            }
             $data_inicial = $_POST['data_inicial'];
             $data_inicial = implode("-", array_reverse(explode("/", $data_inicial)));
             $data_final = $_POST['data_final'];
             $data_final = implode("-", array_reverse(explode("/", $data_final)));
 
-            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`setor` = '$_POST[setor]')
+            $sql = "SELECT * FROM registros AS retorno WHERE (retorno.`data` BETWEEN '$data_inicial' AND '$data_final') AND (retorno.`setor` = '$_POST[setor]') AND (retorno.`desconsiderar` != '1')
             ORDER BY data, protocolo";
 
             $res = $conn->query($sql);
